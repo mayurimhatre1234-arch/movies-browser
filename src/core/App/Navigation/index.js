@@ -17,13 +17,19 @@ import {
 } from "../../../features/pageStateSlice";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch } from "react-redux";
-import { toMoviesPage, toPeoplePage } from "../../../utils/routes";
+import {
+  toMoviesPage,
+  toPeoplePage,
+  toWatchlistPage,
+} from "../../../utils/routes";
 import { SearchInput } from "./SearchInput";
 import { ThemeToggle } from "../../../components/ThemeToggle";
+import { selectWatchlistCount } from "../../../features/watchlist/watchlistSlice";
 
 export const Navigation = () => {
   const currentMoviePage = useSelector(selectCurrentMoviePage);
   const currentPeoplePage = useSelector(selectCurrentPeoplePage);
+  const watchlistCount = useSelector(selectWatchlistCount);
   const location = useLocation();
   const pathName = location.pathname.split("/")[1];
   const dispatch = useDispatch();
@@ -50,6 +56,12 @@ export const Navigation = () => {
               $active={pathName === "people"}
             >
               People
+            </StyledNavLink>
+            <StyledNavLink
+              to={toWatchlistPage()}
+              $active={pathName === "watchlist"}
+            >
+              Watchlist{watchlistCount > 0 ? ` (${watchlistCount})` : ""}
             </StyledNavLink>
             <ThemeToggle />
           </ButtonsWrapper>

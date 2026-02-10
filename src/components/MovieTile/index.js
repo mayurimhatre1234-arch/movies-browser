@@ -14,6 +14,7 @@ import { MovieRating } from "../MovieRating";
 import { posterMainSizeUrl, posterMobileSizeUrl } from "../../api/api";
 import { selectMobile } from "../../features/pageStateSlice";
 import { toMovieDetailsPage } from "../../utils/routes";
+import { WatchlistButton } from "../WatchlistButton";
 
 export const MovieTile = ({
   poster,
@@ -30,6 +31,10 @@ export const MovieTile = ({
 
   return (
     <MovieTileContent>
+      <WatchlistButton
+        movie={{ id, title, poster_path: poster, release_date: subtitle ? `${subtitle}-01-01` : "", genre_ids: tags || [], vote_average: rating, vote_count: votes }}
+        absolute
+      />
       <MovieTileNavLink to={toMovieDetailsPage({ id: id })}>
         <MovieTileImage
           src={poster ? posterUrl + poster : noPoster}

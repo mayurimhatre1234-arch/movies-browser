@@ -7,6 +7,7 @@ import peopleReducer from "../features/people/peopleSlice";
 import movieDetailsReducer from "../features/movieDetails/movieDetailsSlice";
 import personDetailsReducer from "../features/personDetails/peopleDetailSlice";
 import themeReducer from "../features/themeSlice";
+import watchlistReducer from "../features/watchlist/watchlistSlice";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -18,6 +19,7 @@ const store = configureStore({
     movieDetails: movieDetailsReducer,
     personDetails: personDetailsReducer,
     theme: themeReducer,
+    watchlist: watchlistReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware),
