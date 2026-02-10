@@ -3,8 +3,8 @@ import { ReactComponent as VideoSVG } from "../../../assets/video.svg";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
 export const Container = styled.nav`
-  background-color: ${({ theme }) => theme.color.blackSpecial};
-  color: ${({ theme }) => theme.color.white};
+  background-color: ${({ theme }) => theme.color.navBg};
+  color: ${({ theme }) => theme.color.navText};
   position: sticky;
   width: 100%;
   top: 0px;
@@ -21,7 +21,7 @@ export const Container = styled.nav`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoint.small}) {
-    background-color: ${({ theme }) => theme.color.black};
+    background-color: ${({ theme }) => theme.color.navBgMobile};
   }
 `;
 
@@ -120,17 +120,17 @@ export const ButtonsWrapper = styled.div`
 `;
 
 export const StyledNavLink = styled(NavLink)`
-  background-color: ${({ theme }) => theme.color.blackSpecial};
+  background-color: ${({ theme }) => theme.color.navBg};
   text-transform: uppercase;
   font-weight: ${({ theme }) => theme.fontWeight.semiBold};
   font-size: 14px;
   line-height: 21px;
   text-decoration: none;
-  color: ${({ theme }) => theme.color.white};
+  color: ${({ theme }) => theme.color.navText};
   padding: 8px 24px;
   border: 1px solid;
   border-color: ${({ theme, $active }) =>
-    $active ? theme.color.white : "transparent"};
+    $active ? theme.color.navText : "transparent"};
   border-radius: 24px;
   text-align: left;
   cursor: pointer;
@@ -143,18 +143,18 @@ export const StyledNavLink = styled(NavLink)`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoint.small}) {
-    background-color: ${({ theme }) => theme.color.black};
+    background-color: ${({ theme }) => theme.color.navBgMobile};
   }
 
   &.active,
   &:hover {
-    border: 1px solid ${({ theme }) => theme.color.white};
+    border: 1px solid ${({ theme }) => theme.color.navText};
   }
 `;
 
 export const LogoLink = styled(NavLink)`
   text-decoration: none;
-  color: ${({ theme }) => theme.color.white};
+  color: ${({ theme }) => theme.color.navText};
 `;
 
 export const InputWrapper = styled.div`

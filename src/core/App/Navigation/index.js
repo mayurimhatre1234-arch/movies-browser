@@ -19,6 +19,7 @@ import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch } from "react-redux";
 import { toMoviesPage, toPeoplePage } from "../../../utils/routes";
 import { SearchInput } from "./SearchInput";
+import { ThemeToggle } from "../../../components/ThemeToggle";
 
 export const Navigation = () => {
   const currentMoviePage = useSelector(selectCurrentMoviePage);
@@ -50,6 +51,7 @@ export const Navigation = () => {
             >
               People
             </StyledNavLink>
+            <ThemeToggle />
           </ButtonsWrapper>
         </LogoButtonsWrapper>
         <InputWrapper>

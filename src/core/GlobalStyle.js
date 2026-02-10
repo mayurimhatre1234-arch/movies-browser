@@ -16,5 +16,6 @@ export const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
     overflow-y: scroll;
     min-width: 320px;
+    transition: background-color 0.3s, color 0.3s;
   }
 `;

@@ -1,4 +1,4 @@
-export const theme = {
+const common = {
   breakpoint: {
     small: "480px",
     medium: "767px",
@@ -10,6 +10,10 @@ export const theme = {
     semiBold: 600,
     bold: 700,
   },
+};
+
+export const lightTheme = {
+  ...common,
   color: {
     white: "#FFFFFF",
     lightGrey: "#F5F5FA",
@@ -26,5 +30,37 @@ export const theme = {
 
     imageBG: "#C4C4C4",
     boxShadow: "#BAC7D580",
+
+    navBg: "#18181B",
+    navBgMobile: "#000000",
+    navText: "#FFFFFF",
   },
 };
+
+export const darkTheme = {
+  ...common,
+  color: {
+    white: "#1E1E2A",
+    lightGrey: "#121218",
+    grey: "#2A2A3A",
+    darkerGrey: "#9A9AB0",
+    stormGray: "#9A9AAE",
+    black: "#FFFFFF",
+    blackSpecial: "#E4E4E8",
+
+    mineShaft: "#D0D0D0",
+    lightBlue: "#1A2A44",
+    blue: "#4488FF",
+    yellow: "#FCD420",
+
+    imageBG: "#2A2A3A",
+    boxShadow: "#00000040",
+
+    navBg: "#18181B",
+    navBgMobile: "#000000",
+    navText: "#FFFFFF",
+  },
+};
+
+// Default export for backwards compatibility (used by pageStateSlice for breakpoint)
+export const theme = lightTheme;
