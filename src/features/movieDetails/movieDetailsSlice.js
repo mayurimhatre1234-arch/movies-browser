@@ -5,6 +5,7 @@ const moviesSlice = createSlice({
   initialState: {
     content: null,
     credits: {},
+    similarMovies: [],
   },
   reducers: {
     setMovieDetails: (state, { payload: content }) => {
@@ -13,10 +14,14 @@ const moviesSlice = createSlice({
     setCredits: (state, { payload: credits }) => {
       state.credits = credits;
     },
+    setSimilarMovies: (state, { payload: movies }) => {
+      state.similarMovies = movies;
+    },
   },
 });
 
-export const { setMovieDetails, setCredits } = moviesSlice.actions;
+export const { setMovieDetails, setCredits, setSimilarMovies } =
+  moviesSlice.actions;
 
 const selectMovieDetailsState = (state) => state.movieDetails;
 export const selectMovieDetailsContent = (state) =>
@@ -27,5 +32,7 @@ export const selectMovieDetailsCreditsCast = (state) =>
   selectMovieDetailsCredits(state).cast;
 export const selectMovieDetailsCreditsCrew = (state) =>
   selectMovieDetailsCredits(state).crew;
+export const selectSimilarMovies = (state) =>
+  selectMovieDetailsState(state).similarMovies;
 
 export default moviesSlice.reducer;

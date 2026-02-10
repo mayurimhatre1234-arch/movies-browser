@@ -8,6 +8,7 @@ export const popularMoviesUrl = `${url}movie/popular?${parameters}&page={page}`;
 export const movieDetailsUrl = `${url}movie/{movie_id}?${parameters}`;
 export const genreUrl = `${url}genre/movie/list?${parameters}`;
 export const creditsUrl = `${url}movie/{movie_id}/credits?${parameters}`;
+export const similarMoviesUrl = `${url}movie/{movie_id}/similar?${parameters}`;
 export const popularPeopleUrl = `${url}person/popular?${parameters}&page={page}`;
 export const personUrl = `${url}person/{person_id}?${parameters}`;
 export const movieCreditsUrl = `${url}person/{person_id}/movie_credits?${parameters}`;
