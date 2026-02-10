@@ -2,6 +2,14 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Git Workflow (MUST follow)
+
+See [docs/GIT_WORKFLOW.md](docs/GIT_WORKFLOW.md) for full details.
+
+- **ALWAYS push to `origin`** (the fork): `git push origin <branch>`
+- **NEVER use bare `git push`** or push to `upstream`
+- Each feature gets its own branch: `feature-<name>`
+
 ## Build and Development Commands
 
 ```bash
