@@ -21,6 +21,7 @@ import {
   selectMovieDetailsCreditsCrew,
 } from "../movieDetailsSlice";
 import { Page } from "../../../components/Page";
+import { addRecentlyViewed } from "../../../utils/recentlyViewed";
 
 export const MovieDetailsPage = () => {
   const movieDetailsContent = useSelector(selectMovieDetailsContent);
@@ -36,6 +37,17 @@ export const MovieDetailsPage = () => {
   useEffect(() => {
     dispatch(fetchApi({ pathName: fullPathName, id }));
   }, [fullPathName, id, dispatch]);
+
+  useEffect(() => {
+    if (movieDetailsContent) {
+      addRecentlyViewed({
+        id: movieDetailsContent.id,
+        type: "movie",
+        title: movieDetailsContent.title,
+        image: movieDetailsContent.poster_path,
+      });
+    }
+  }, [movieDetailsContent]);
 
   return (
     <Page

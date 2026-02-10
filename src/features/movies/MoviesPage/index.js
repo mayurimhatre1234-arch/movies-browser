@@ -21,6 +21,7 @@ import {
 import { useQueryParameter } from "../../../utils/queryParameters";
 import { Page } from "../../../components/Page";
 import { GenreFilter, NoFilteredResults } from "../../../components/GenreFilter";
+import { RecentlyViewed } from "../../../components/RecentlyViewed";
 
 export const MoviesPage = () => {
   const location = useLocation();
@@ -64,6 +65,7 @@ export const MoviesPage = () => {
     <Page
       children={
         <>
+          {!storeQuery && <RecentlyViewed />}
           {!storeQuery && <GenreFilter show={showContent} />}
           <Section
             show={storeQuery ? true : showContent}

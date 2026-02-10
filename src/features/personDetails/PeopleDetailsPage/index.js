@@ -21,6 +21,7 @@ import {
   selectPersonDetailsCreditsCrew,
 } from "../peopleDetailSlice";
 import { Page } from "../../../components/Page";
+import { addRecentlyViewed } from "../../../utils/recentlyViewed";
 
 export const PeopleDetailsPage = () => {
   const { id } = useParams();
@@ -37,6 +38,17 @@ export const PeopleDetailsPage = () => {
   useEffect(() => {
     dispatch(fetchApi({ pathName: fullPathName, id }));
   }, [fullPathName, id, dispatch]);
+
+  useEffect(() => {
+    if (personContent) {
+      addRecentlyViewed({
+        id: personContent.id,
+        type: "person",
+        title: personContent.name,
+        image: personContent.profile_path,
+      });
+    }
+  }, [personContent]);
 
   return (
     <Page
