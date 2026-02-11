@@ -13,6 +13,7 @@ export const personUrl = `${url}person/{person_id}?${parameters}`;
 export const movieCreditsUrl = `${url}person/{person_id}/movie_credits?${parameters}`;
 export const searchMovieUrl = `${url}search/movie?query={query}&${parameters}&page={page}`;
 export const searchPersonUrl = `${url}search/person?query={query}&${parameters}&page={page}`;
+export const discoverMoviesUrl = `${url}discover/movie?${parameters}`;
 
 export const posterMobileSizeUrl = `https://image.tmdb.org/t/p/w154`;
 export const posterMainSizeUrl = `https://image.tmdb.org/t/p/w342`;
