@@ -3,6 +3,7 @@ import {
   genreUrl,
   movieDetailsUrl,
   creditsUrl,
+  similarMoviesUrl,
   popularPeopleUrl,
   personUrl,
   movieCreditsUrl,
@@ -36,6 +37,11 @@ export const getGenres = () => fetchApi(genreUrl);
 
 export const getCredits = (id) => {
   const updatedUrl = creditsUrl.replace("{movie_id}", id);
+  return fetchApi(updatedUrl);
+};
+
+export const getSimilarMovies = (id) => {
+  const updatedUrl = similarMoviesUrl.replace("{movie_id}", id);
   return fetchApi(updatedUrl);
 };
 

@@ -19,15 +19,21 @@ import {
   selectMovieDetailsContent,
   selectMovieDetailsCreditsCast,
   selectMovieDetailsCreditsCrew,
+  selectSimilarMovies,
 } from "../movieDetailsSlice";
 import { Page } from "../../../components/Page";
 import { WatchlistButton } from "../../../components/WatchlistButton";
+import { HorizontalScroll } from "../../../components/HorizontalScroll";
+import { MovieTile } from "../../../components/MovieTile";
+import { selectGenres } from "../../movies/moviesSlice";
 
 export const MovieDetailsPage = () => {
   const movieDetailsContent = useSelector(selectMovieDetailsContent);
   const mobile = useSelector(selectMobile);
   const creditsCast = useSelector(selectMovieDetailsCreditsCast);
   const creditsCrew = useSelector(selectMovieDetailsCreditsCrew);
+  const similarMovies = useSelector(selectSimilarMovies);
+  const genres = useSelector(selectGenres);
   const { id } = useParams();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -125,6 +131,29 @@ export const MovieDetailsPage = () => {
                   />
                 ))}
               </PeopleWrapper>
+            </Section>
+          )}
+          {similarMovies?.length > 0 && (
+            <Section
+              title="Similar Movies"
+              show={showContenet}
+              delay={movieDetailsContent?.backdrop_path ? true : false}
+            >
+              <HorizontalScroll>
+                {similarMovies.map((movie) => (
+                  <MovieTile
+                    key={movie.id}
+                    poster={movie.poster_path}
+                    title={movie.title}
+                    subtitle={movie.release_date?.split("-")[0]}
+                    tags={movie.genre_ids}
+                    genres={genres}
+                    rating={movie.vote_average}
+                    votes={movie.vote_count}
+                    id={movie.id}
+                  />
+                ))}
+              </HorizontalScroll>
             </Section>
           )}
         </>
