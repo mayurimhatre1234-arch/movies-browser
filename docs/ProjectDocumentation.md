@@ -517,4 +517,77 @@ graph TD
 
 ---
 
+## 10. Features Added
+
+### Feature 1: Dark Mode Toggle
+**Branch**: `feature-darkMode`
+**Key Files**: `src/components/ThemeToggle/index.js`, `src/features/themeSlice.js`, `src/config/theme.js`
+
+Adds a light/dark theme toggle button to the navigation bar. The theme state is managed via a Redux slice (`themeSlice`) and persisted to `localStorage`, so the user's preference is remembered across sessions. The toggle displays a moon icon in light mode and a sun icon in dark mode. All styled-components consume theme tokens, so the entire UI adapts seamlessly when the theme switches.
+
+---
+
+### Feature 2: Watchlist / Favorites
+**Branch**: `feature-watchlist`
+**Key Files**: `src/features/watchlist/watchlistSlice.js`, `src/components/WatchlistButton/index.js`, `src/features/watchlist/WatchlistPage/`
+
+Allows users to add or remove movies from a personal watchlist using a heart-shaped toggle button on movie tiles and the movie detail page. The watchlist is stored in both Redux state and `localStorage` for persistence. A dedicated Watchlist page displays all saved movies in the same grid layout as the main movies page. A watchlist count badge appears in the navigation bar so users can see how many movies they've saved.
+
+---
+
+### Feature 3: Similar Movies
+**Branch**: `feature-similarMovies`
+**Key Files**: `src/features/movieDetails/movieDetailsSlice.js`, `src/features/movieDetails/movieDetailsSaga.js`, `src/features/movieDetails/MovieDetailsPage/index.js`
+
+Displays a "Similar Movies" section at the bottom of the movie detail page. When a movie detail page loads, the saga fetches similar movies from the TMDB `/movie/{id}/similar` endpoint in parallel with existing detail and credits requests. Results are stored in the Redux slice and rendered as a horizontally scrollable row of movie tiles, each linking to its own detail page.
+
+---
+
+### Feature 4: Recently Viewed
+**Branch**: `feature-recentlyViewed`
+**Key Files**: `src/utils/recentlyViewed.js`, `src/components/RecentlyViewed/index.js`, `src/components/RecentlyViewed/styled.js`
+
+Tracks the last 20 movies and people the user has visited, stored in `localStorage`. A "Recently Viewed" section appears on the Movies page showing thumbnail cards in a horizontal scrollable row. Each card links back to the corresponding movie or person detail page. The utility module provides `addRecentlyViewed`, `getRecentlyViewed`, and `clearRecentlyViewed` functions. Items are deduplicated and ordered most-recent-first.
+
+---
+
+### Feature 5: Advanced Filters
+**Branch**: `feature-advancedFilters`
+**Key Files**: `src/components/AdvancedFilters/index.js`, `src/components/AdvancedFilters/styled.js`
+
+Adds a filter panel above the movie grid with four controls:
+- **Sort by** — Dropdown to sort by popularity, rating, release date, or revenue
+- **Min rating** — Number input to filter movies by minimum vote average
+- **Year from / Year to** — Year range filter for release dates
+
+All filter values are stored as URL query parameters, making filtered views shareable and bookmark-friendly. A "Reset filters" button clears all active filters at once. The filters integrate with the existing saga-based data flow, passing parameters to the TMDB discover endpoint.
+
+---
+
+### Feature 6: YearPicker Enhancement
+**Branch**: `feature-enhanceFilters`
+**Key Files**: `src/components/YearPicker/index.js`, `src/components/YearPicker/styled.js`
+
+Replaces the plain number input for year filtering with a custom dropdown year picker. The picker displays years in a grid (12 per page) with decade-based navigation arrows to browse from 1900 to the current year. Features include:
+- Click-outside-to-close behavior
+- A clear button to reset the selection
+- Keyboard-accessible navigation
+- Debounced min rating input (800ms delay) to avoid excessive API calls while typing
+
+---
+
+### Feature 7: Collapsible Filters Toggle
+**Branch**: `feature-collapsibleFilters`
+**Key Files**: `src/components/AdvancedFilters/index.js`, `src/components/AdvancedFilters/styled.js`
+
+Adds a collapsible toggle to the Advanced Filters panel to save vertical space. The filter controls are collapsed by default, showing only a header row with the label "Advanced Filters", a chevron indicator, and the Reset button. Clicking the header smoothly expands or collapses the filter controls using a `max-height` CSS transition. When filters are active and the panel is collapsed, a small blue dot badge appears next to the label so users know filters are applied without needing to expand the panel.
+
+| State | What's Visible |
+|-------|---------------|
+| Collapsed, no filters | "Advanced Filters >" + disabled Reset |
+| Collapsed, filters active | "Advanced Filters >" + blue dot + enabled Reset |
+| Expanded | "Advanced Filters v" + Reset + all filter controls |
+
+---
+
 This documentation should enable new developers to understand the codebase structure, locate relevant files, and contribute effectively.
