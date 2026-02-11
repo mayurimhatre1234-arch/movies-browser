@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useQueryParameter, useReplaceQueryParameters } from "../../utils/queryParameters";
 import {
   sortByParamName,
@@ -16,6 +17,7 @@ import {
   FilterInput,
   ResetButton,
 } from "./styled";
+import { YearPicker } from "../YearPicker";
 
 const SORT_OPTIONS = [
   { value: "", label: "Popular (default)" },
@@ -26,6 +28,8 @@ const SORT_OPTIONS = [
   { value: "revenue.desc", label: "Revenue (highest)" },
 ];
 
+const DEBOUNCE_DELAY = 800;
+
 export const AdvancedFilters = ({ show }) => {
   const replaceQueryParameters = useReplaceQueryParameters();
   const sortBy = useQueryParameter(sortByParamName) || "";
@@ -33,13 +37,44 @@ export const AdvancedFilters = ({ show }) => {
   const yearFrom = useQueryParameter(yearFromParamName) || "";
   const yearTo = useQueryParameter(yearToParamName) || "";
 
+  const [localMinRating, setLocalMinRating] = useState(minRating);
+
+  const debounceTimerRef = useRef(null);
+
+  useEffect(() => { setLocalMinRating(minRating); }, [minRating]);
+
+  const debouncedUpdate = useCallback((param, value) => {
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+    debounceTimerRef.current = setTimeout(() => {
+      replaceQueryParameters({ [param]: value, page: "" });
+    }, DEBOUNCE_DELAY);
+  }, [replaceQueryParameters]);
+
+  useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
+  }, []);
+
   const hasFilters = sortBy || minRating || yearFrom || yearTo;
 
-  const handleChange = (param, value) => {
+  const handleSortChange = (value) => {
+    replaceQueryParameters({ [sortByParamName]: value, page: "" });
+  };
+
+  const handleYearChange = (param, value) => {
     replaceQueryParameters({ [param]: value, page: "" });
   };
 
   const handleReset = () => {
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+    setLocalMinRating("");
     replaceQueryParameters({
       [sortByParamName]: "",
       [minRatingParamName]: "",
@@ -62,7 +97,7 @@ export const AdvancedFilters = ({ show }) => {
           <FilterGroupLabel>Sort by</FilterGroupLabel>
           <FilterSelect
             value={sortBy}
-            onChange={(e) => handleChange(sortByParamName, e.target.value)}
+            onChange={(e) => handleSortChange(e.target.value)}
           >
             {SORT_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -79,30 +114,27 @@ export const AdvancedFilters = ({ show }) => {
             max="10"
             step="0.5"
             placeholder="0"
-            value={minRating}
-            onChange={(e) => handleChange(minRatingParamName, e.target.value)}
+            value={localMinRating}
+            onChange={(e) => {
+              setLocalMinRating(e.target.value);
+              debouncedUpdate(minRatingParamName, e.target.value);
+            }}
           />
         </FilterGroup>
         <FilterGroup>
           <FilterGroupLabel>Year from</FilterGroupLabel>
-          <FilterInput
-            type="number"
-            min="1900"
-            max="2030"
-            placeholder="1900"
+          <YearPicker
             value={yearFrom}
-            onChange={(e) => handleChange(yearFromParamName, e.target.value)}
+            placeholder="Select year"
+            onChange={(value) => handleYearChange(yearFromParamName, value)}
           />
         </FilterGroup>
         <FilterGroup>
           <FilterGroupLabel>Year to</FilterGroupLabel>
-          <FilterInput
-            type="number"
-            min="1900"
-            max="2030"
-            placeholder="2026"
+          <YearPicker
             value={yearTo}
-            onChange={(e) => handleChange(yearToParamName, e.target.value)}
+            placeholder="Select year"
+            onChange={(value) => handleYearChange(yearToParamName, value)}
           />
         </FilterGroup>
       </FilterRow>
