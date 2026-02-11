@@ -9,5 +9,7 @@ export const toMoviesPage = ({ page } = { page: 1 }) =>
 export const toPeoplePage = ({ page } = { page: 1 }) =>
   page === 1 ? "/people" : `/people?${buildQueryString({ page })}`;
 
+export const toWatchlistPage = () => "/watchlist";
+
 export const toPage = ({ pathname, page, search }) =>
   `${pathname}?${buildQueryString({ page }, search)}`;

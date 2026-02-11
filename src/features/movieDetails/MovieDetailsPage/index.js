@@ -21,6 +21,7 @@ import {
   selectMovieDetailsCreditsCrew,
 } from "../movieDetailsSlice";
 import { Page } from "../../../components/Page";
+import { WatchlistButton } from "../../../components/WatchlistButton";
 
 export const MovieDetailsPage = () => {
   const movieDetailsContent = useSelector(selectMovieDetailsContent);
@@ -47,6 +48,19 @@ export const MovieDetailsPage = () => {
             rating={movieDetailsContent?.vote_average}
             votes={movieDetailsContent?.vote_count}
           />
+          {movieDetailsContent && (
+            <WatchlistButton
+              movie={{
+                id: movieDetailsContent.id,
+                title: movieDetailsContent.title,
+                poster_path: movieDetailsContent.poster_path,
+                release_date: movieDetailsContent.release_date,
+                genre_ids: movieDetailsContent.genres?.map((g) => g.id) || [],
+                vote_average: movieDetailsContent.vote_average,
+                vote_count: movieDetailsContent.vote_count,
+              }}
+            />
+          )}
           <Section
             show={showContenet}
             delay={movieDetailsContent?.backdrop_path ? true : false}

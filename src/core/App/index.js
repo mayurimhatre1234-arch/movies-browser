@@ -10,11 +10,13 @@ import { MovieDetailsPage } from "../../features/movieDetails/MovieDetailsPage";
 import { MoviesPage } from "../../features/movies/MoviesPage";
 import { PeopleDetailsPage } from "../../features/personDetails/PeopleDetailsPage";
 import { PeoplePage } from "../../features/people/PeoplePage";
+import { WatchlistPage } from "../../features/watchlist/WatchlistPage";
 import {
   toMovieDetailsPage,
   toMoviesPage,
   toPeopleDetailsPage,
   toPeoplePage,
+  toWatchlistPage,
 } from "../../utils/routes";
 
 function App() {
@@ -28,6 +30,9 @@ function App() {
           </Route>
           <Route path={toPeopleDetailsPage()}>
             <PeopleDetailsPage />
+          </Route>
+          <Route path={toWatchlistPage()}>
+            <WatchlistPage />
           </Route>
           <Route path={toMoviesPage()}>
             <MoviesPage />
