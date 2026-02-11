@@ -36,6 +36,44 @@ export const FilterLabel = styled.span`
   }
 `;
 
+export const ToggleButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 4px 0;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+`;
+
+export const ChevronIcon = styled.span`
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid ${({ theme }) => theme.color.blackSpecial};
+  transition: transform 0.3s ease;
+  transform: ${({ $isExpanded }) => $isExpanded ? "rotate(0deg)" : "rotate(-90deg)"};
+`;
+
+export const ActiveBadge = styled.span`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.color.blue};
+  display: inline-block;
+  flex-shrink: 0;
+`;
+
+export const CollapsibleContent = styled.div`
+  max-height: ${({ $isExpanded }) => $isExpanded ? "200px" : "0"};
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+`;
+
 export const FilterRow = styled.div`
   display: flex;
   flex-wrap: wrap;

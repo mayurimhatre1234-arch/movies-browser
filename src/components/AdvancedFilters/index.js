@@ -16,6 +16,10 @@ import {
   FilterSelect,
   FilterInput,
   ResetButton,
+  ToggleButton,
+  ChevronIcon,
+  ActiveBadge,
+  CollapsibleContent,
 } from "./styled";
 import { YearPicker } from "../YearPicker";
 
@@ -60,6 +64,8 @@ export const AdvancedFilters = ({ show }) => {
     };
   }, []);
 
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const hasFilters = sortBy || minRating || yearFrom || yearTo;
 
   const handleSortChange = (value) => {
@@ -87,11 +93,16 @@ export const AdvancedFilters = ({ show }) => {
   return (
     <FilterContainer style={{ opacity: show ? 1 : 0, transition: "opacity 0.6s" }}>
       <FilterHeader>
-        <FilterLabel>Advanced Filters</FilterLabel>
+        <ToggleButton onClick={() => setIsExpanded(prev => !prev)}>
+          <FilterLabel>Advanced Filters</FilterLabel>
+          <ChevronIcon $isExpanded={isExpanded} />
+          {!isExpanded && hasFilters && <ActiveBadge />}
+        </ToggleButton>
         <ResetButton onClick={handleReset} disabled={!hasFilters}>
           Reset filters
         </ResetButton>
       </FilterHeader>
+      <CollapsibleContent $isExpanded={isExpanded}>
       <FilterRow>
         <FilterGroup>
           <FilterGroupLabel>Sort by</FilterGroupLabel>
@@ -138,6 +149,7 @@ export const AdvancedFilters = ({ show }) => {
           />
         </FilterGroup>
       </FilterRow>
+      </CollapsibleContent>
     </FilterContainer>
   );
 };
