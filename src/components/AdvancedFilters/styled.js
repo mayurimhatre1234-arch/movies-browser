@@ -70,7 +70,7 @@ export const ActiveBadge = styled.span`
 
 export const CollapsibleContent = styled.div`
   max-height: ${({ $isExpanded }) => $isExpanded ? "200px" : "0"};
-  overflow: hidden;
+  overflow: ${({ $isExpanded }) => $isExpanded ? "visible" : "hidden"};
   transition: max-height 0.3s ease;
 `;
 
