@@ -52,6 +52,9 @@ const pageStateSlice = createSlice({
     setCurrentMoviePage: (state, { payload: page }) => {
       state.moviePages.currentPage = page;
     },
+    setLastMoviePage: (state, { payload: page }) => {
+      state.moviePages.lastPage = page;
+    },
     setCurrentPeoplePage: (state, { payload: page }) => {
       state.peoplePages.currentPage = page;
     },
@@ -86,6 +89,7 @@ export const {
   setShowContent,
   resetShowContent,
   setCurrentMoviePage,
+  setLastMoviePage,
   setCurrentPeoplePage,
   setQuery,
   clearAfterSearch,

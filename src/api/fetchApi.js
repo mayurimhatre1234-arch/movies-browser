@@ -9,6 +9,7 @@ import {
   movieCreditsUrl,
   searchMovieUrl,
   searchPersonUrl,
+  discoverMoviesUrl,
 } from "./api";
 
 const fetchApi = (url) =>
@@ -72,4 +73,14 @@ export const getSearchPerson = ({ page, query }) => {
     .replace("{query}", query)
     .replace("{page}", page);
   return fetchApi(updatedUrl);
+};
+
+export const getDiscoverMovies = ({ page, sortBy, minRating, yearFrom, yearTo, genres }) => {
+  let url = `${discoverMoviesUrl}&page=${page}`;
+  if (sortBy) url += `&sort_by=${sortBy}`;
+  if (minRating) url += `&vote_average.gte=${minRating}&vote_count.gte=50`;
+  if (yearFrom) url += `&primary_release_date.gte=${yearFrom}-01-01`;
+  if (yearTo) url += `&primary_release_date.lte=${yearTo}-12-31`;
+  if (genres) url += `&with_genres=${genres}`;
+  return fetchApi(url);
 };
